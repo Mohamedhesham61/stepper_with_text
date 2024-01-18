@@ -77,8 +77,6 @@ class _IconStepperDemo extends State<IconStepperDemo> {
                   'Chapters #1',
                   'Chapters #2',
                 ],
-                 
-
                 // This ensures step-tapping updates the activeStep.
                 onStepReached: (index) {
                   setState(() {
@@ -86,14 +84,48 @@ class _IconStepperDemo extends State<IconStepperDemo> {
                   });
                 },
               ),
-              header(),
+              // header(),
+              // Expanded(
+              //   child: FittedBox(
+              //     child: Center(
+              //       child: Text('$activeStep'),
+              //     ),
+              //   ),
+              // ),
               Expanded(
-                child: FittedBox(
-                  child: Center(
-                    child: Text('$activeStep'),
-                  ),
+                child: IconStepper(
+                  alignment: Alignment.centerRight,
+                  completedTasks: completedTasks,
+                  direction: Axis.vertical,
+                  stepCompletedColor: finished,
+                  stepperAnimateInMiddle: true,
+                  icons: allIcons,
+                  stepsCompletedStatusMap: completeStatusMap,
+                  activeStepColor: active,
+                  activeStepBorderColor: active,
+                  enableNextPreviousButtons: false,
+                  // activeStep property set to activeStep variable defined above.
+                  stepColor: remain,
+                  activeStep: activeStep,
+                  enableText: true,
+                  texts: const [
+                    'Preface',
+                    'Table ',
+                    'About',
+                    'Publisher',
+                    'Reviews',
+                    'Chapters #1',
+                    'Chapters #2',
+                  ],
+                  // This ensures step-tapping updates the activeStep.
+                  onStepReached: (index) {
+                    setState(() {
+                      activeStep = index;
+                    });
+                  },
                 ),
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

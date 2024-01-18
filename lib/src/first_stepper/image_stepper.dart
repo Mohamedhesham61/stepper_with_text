@@ -98,7 +98,7 @@ class ImageStepper extends StatelessWidget {
     this.activeStepColor,
     this.activeStepBorderColor,
     this.activeStepBorderWidth = 0.5,
-    this.activeStepBorderPadding = 1.0,
+    this.activeStepBorderPadding = 0.0,
     this.lineColor,
     this.lineLength = 50.0,
     this.lineDotRadius = 1.0,

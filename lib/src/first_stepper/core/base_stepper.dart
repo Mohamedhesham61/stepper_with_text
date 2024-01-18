@@ -59,6 +59,7 @@ class BaseStepper extends StatefulWidget {
 
   // completed Map
   final Map<String, int>? completedSteps;
+
   //Animate Selected Stepper in middle
   final bool? stepperAnimateInMiddle;
 
@@ -133,6 +134,7 @@ class BaseStepper extends StatefulWidget {
 
   /// Specifies the alignment of the stepper.
   final AlignmentGeometry? alignment;
+
   //Enable Text
   final bool enableText;
 
@@ -199,13 +201,10 @@ class BaseStepperState extends State<BaseStepper> {
     if (!widget.scrollingDisabled) {
       WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
     }
-
     return widget.direction == Axis.horizontal
         ? Row(
             children: <Widget>[
-              widget.nextPreviousButtonsDisabled
-                  ? _previousButton()
-                  : Container(),
+              widget.nextPreviousButtonsDisabled ? _previousButton() : Container(),
               Expanded(
                 child: _stepperBuilder(),
               ),
@@ -214,9 +213,7 @@ class BaseStepperState extends State<BaseStepper> {
           )
         : Column(
             children: <Widget>[
-              widget.nextPreviousButtonsDisabled
-                  ? _previousButton()
-                  : Container(),
+              widget.nextPreviousButtonsDisabled ? _previousButton() : Container(),
               Expanded(
                 child: _stepperBuilder(),
               ),
@@ -228,19 +225,16 @@ class BaseStepperState extends State<BaseStepper> {
   /// Builds the stepper.
   Widget _stepperBuilder() {
     return Align(
-      alignment: widget.alignment ?? Alignment.center,
+      alignment: widget.alignment ?? Alignment.centerRight,
       child: SingleChildScrollView(
         scrollDirection: widget.direction,
         controller: _scrollController,
-        physics: widget.scrollingDisabled
-            ? const NeverScrollableScrollPhysics()
-            : const ClampingScrollPhysics(),
+        physics: widget.scrollingDisabled ? const NeverScrollableScrollPhysics() : const ClampingScrollPhysics(),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           padding: const EdgeInsets.all(8.0),
-          child: widget.direction == Axis.horizontal
-              ? Row(children: _buildSteps())
-              : Column(children: _buildSteps()),
+          child: widget.direction == Axis.horizontal ? Row(children: _buildSteps()) : Column(
+              children: _buildSteps()),
         ),
       ),
     );
@@ -269,12 +263,29 @@ class BaseStepperState extends State<BaseStepper> {
                   _customizedDottedLine(index, Axis.horizontal),
                 ],
               )
-            : Column(
-                children: <Widget>[
-                  _customizedIndicator(index),
-                  _customizedDottedLine(index, Axis.vertical),
+            : SizedBox(
+              width: MediaQuery.of(context).size.width * 0.40,
+              child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  if (widget.enableText)
+                    Padding(
+                      padding: EdgeInsets.only(top: widget.stepRadius, right: 10),
+                      child: Text(
+                        widget.texts![index],
+                        style: widget.textStyle,
+                      ),
+                    ),
+                  Column(
+                      children: <Widget>[
+                        _customizedIndicator(index),
+                        _customizedDottedLine(index, Axis.vertical),
+                      ],
+                    ),
                 ],
-              );
+              ),
+            );
       },
     );
   }
@@ -324,10 +335,10 @@ class BaseStepperState extends State<BaseStepper> {
               ),
               SizedBox(height: widget.iconAndTextSpacing),
               //this is for dots alignment
-              const Text("")
+              // const Text("")
             ],
           )
-        : Container();
+        : const SizedBox();
   }
 
   /// The previous button.
@@ -338,9 +349,7 @@ class BaseStepperState extends State<BaseStepper> {
         visualDensity: VisualDensity.compact,
         icon: widget.previousButtonIcon ??
             Icon(
-              widget.direction == Axis.horizontal
-                  ? Icons.arrow_left
-                  : Icons.arrow_drop_up,
+              widget.direction == Axis.horizontal ? Icons.arrow_left : Icons.arrow_drop_up,
             ),
         onPressed: _goToPreviousStep,
       ),
@@ -355,9 +364,7 @@ class BaseStepperState extends State<BaseStepper> {
         visualDensity: VisualDensity.compact,
         icon: widget.nextButtonIcon ??
             Icon(
-              widget.direction == Axis.horizontal
-                  ? Icons.arrow_right
-                  : Icons.arrow_drop_down,
+              widget.direction == Axis.horizontal ? Icons.arrow_right : Icons.arrow_drop_down,
             ),
         onPressed: _goToNextStep,
       ),
@@ -366,8 +373,7 @@ class BaseStepperState extends State<BaseStepper> {
 
   /// Contains the logic for going to the next step.
   void _goToNextStep() {
-    if (_selectedIndex < widget.children!.length - 1 &&
-        widget.steppingEnabled) {
+    if (_selectedIndex < widget.children!.length - 1 && widget.steppingEnabled) {
       setState(() {
         _selectedIndex++;
 
