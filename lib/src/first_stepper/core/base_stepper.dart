@@ -233,8 +233,7 @@ class BaseStepperState extends State<BaseStepper> {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           padding: const EdgeInsets.all(8.0),
-          child: widget.direction == Axis.horizontal ? Row(children: _buildSteps()) : Column(
-              children: _buildSteps()),
+          child: widget.direction == Axis.horizontal ? Row(children: _buildSteps()) : Column(children: _buildSteps()),
         ),
       ),
     );
@@ -263,29 +262,26 @@ class BaseStepperState extends State<BaseStepper> {
                   _customizedDottedLine(index, Axis.horizontal),
                 ],
               )
-            : SizedBox(
-              width: MediaQuery.of(context).size.width * 0.40,
-              child: Row(
+            : Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (widget.enableText)
-                    Padding(
-                      padding: EdgeInsets.only(top: widget.stepRadius, right: 10),
-                      child: Text(
-                        widget.texts![index],
-                        style: widget.textStyle,
-                      ),
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (widget.enableText)
+                  Padding(
+                    padding: EdgeInsets.only(top: widget.stepRadius  * 0.65, right: 10),
+                    child: Text(
+                      widget.texts![index],
+                      style: widget.textStyle,
                     ),
-                  Column(
-                      children: <Widget>[
-                        _customizedIndicator(index),
-                        _customizedDottedLine(index, Axis.vertical),
-                      ],
-                    ),
+                  ),
+                Column(
+                    children: <Widget>[
+                      _customizedIndicator(index),
+                      _customizedDottedLine(index, Axis.vertical),
+                    ],
+                  ),
                 ],
-              ),
-            );
+              );
       },
     );
   }
@@ -293,8 +289,7 @@ class BaseStepperState extends State<BaseStepper> {
   /// A customized IconStep.
   Widget _customizedIndicator(int index) {
     return BaseIndicator(
-      isStepCompleted:
-          widget.completedSteps?[index.toString()] == 0 ? false : true,
+      isStepCompleted: widget.completedSteps?[index.toString()] == 0 ? false : true,
       isSelected: _selectedIndex == index,
       onPressed: widget.stepTappingDisabled
           ? () {

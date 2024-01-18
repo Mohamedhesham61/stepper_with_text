@@ -93,20 +93,22 @@ class _IconStepperDemo extends State<IconStepperDemo> {
               //   ),
               // ),
               Expanded(
-                child: IconStepper(
+                child: ImageStepper(
                   alignment: Alignment.centerRight,
-                  completedTasks: completedTasks,
                   direction: Axis.vertical,
-                  stepCompletedColor: finished,
-                  stepperAnimateInMiddle: true,
-                  icons: allIcons,
-                  stepsCompletedStatusMap: completeStatusMap,
                   activeStepColor: active,
                   activeStepBorderColor: active,
                   enableNextPreviousButtons: false,
+                  stepRadius: 20,
                   // activeStep property set to activeStep variable defined above.
                   stepColor: remain,
                   activeStep: activeStep,
+                  images: [
+                    NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiikrpuMja6PvoLzYFZMN5KLS8KBEvf7pcZPNQgjjiXw&s'),
+                    NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiikrpuMja6PvoLzYFZMN5KLS8KBEvf7pcZPNQgjjiXw&s'),
+                    NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiikrpuMja6PvoLzYFZMN5KLS8KBEvf7pcZPNQgjjiXw&s'),
+                    NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiikrpuMja6PvoLzYFZMN5KLS8KBEvf7pcZPNQgjjiXw&s'),
+                  ],
                   enableText: true,
                   texts: const [
                     'Preface',
