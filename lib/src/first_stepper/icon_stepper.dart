@@ -92,7 +92,7 @@ class IconStepper extends StatelessWidget {
   final TextStyle? textStyle;
 
   //text for icons
-  final List<String>? texts;
+  final List<Text>? texts;
 
   //Space between Icon and Text
   final double iconAndTextSpacing;

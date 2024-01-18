@@ -40,6 +40,8 @@ class BaseStepper extends StatefulWidget {
     this.textStyle,
     this.texts,
     this.iconAndTextSpacing = 0,
+    this.title,
+    this.titleStyle,
   }) : super(key: key) {
     assert(
       lineDotRadius <= 10 && lineDotRadius > 0,
@@ -142,10 +144,13 @@ class BaseStepper extends StatefulWidget {
   final TextStyle? textStyle;
 
   //text for icons
-  final List<String>? texts;
+  final List<Text>? texts;
 
   //Space between Icon and Text
   final double iconAndTextSpacing;
+
+  final String? title;
+  final TextStyle? titleStyle;
 
   @override
   BaseStepperState createState() => BaseStepperState();
@@ -250,35 +255,33 @@ class BaseStepperState extends State<BaseStepper> {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      _customizedIndicator(index),
+                      _customizedIndicator(index, widget.texts![index]),
                       SizedBox(height: widget.iconAndTextSpacing),
-                      if (widget.enableText)
-                        Text(
-                          widget.texts![index],
-                          style: widget.textStyle,
-                        )
+                      // if (widget.enableText)
+                      //   widget.texts![index],
+
                     ],
                   ),
                   _customizedDottedLine(index, Axis.horizontal),
                 ],
               )
             : Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (widget.enableText)
-                  Padding(
-                    padding: EdgeInsets.only(top: widget.stepRadius  * 0.65, right: 10),
-                    child: Text(
-                      widget.texts![index],
-                      style: widget.textStyle,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        _customizedIndicator(index, widget.texts![index]),
+                        Padding(
+                          padding: EdgeInsets.only(right: widget.stepRadius),
+                          child: _customizedDottedLine(index, Axis.vertical),
+                        ),
+                      ],
                     ),
-                  ),
-                Column(
-                    children: <Widget>[
-                      _customizedIndicator(index),
-                      _customizedDottedLine(index, Axis.vertical),
-                    ],
                   ),
                 ],
               );
@@ -287,7 +290,7 @@ class BaseStepperState extends State<BaseStepper> {
   }
 
   /// A customized IconStep.
-  Widget _customizedIndicator(int index) {
+  Widget _customizedIndicator(int index, Text texts) {
     return BaseIndicator(
       isStepCompleted: widget.completedSteps?[index.toString()] == 0 ? false : true,
       isSelected: _selectedIndex == index,
@@ -312,6 +315,7 @@ class BaseStepperState extends State<BaseStepper> {
       margin: widget.margin,
       activeBorderWidth: widget.activeStepBorderWidth,
       child: widget.children![index],
+      texts: texts,
     );
   }
 

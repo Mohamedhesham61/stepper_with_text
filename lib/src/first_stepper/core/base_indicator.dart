@@ -36,6 +36,8 @@ class BaseIndicator extends StatelessWidget {
 
   final bool? isStepCompleted;
 
+  final Text? texts;
+
   const BaseIndicator({
     super.key,
     this.isStepCompleted,
@@ -50,40 +52,45 @@ class BaseIndicator extends StatelessWidget {
     this.padding = 5.0,
     this.margin = 1.0,
     this.activeBorderWidth = 0.5,
+    this.texts,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(margin),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: isSelected
-              ? (activeBorderColor ?? Colors.blue)
-              : Colors.transparent,
-          width: activeBorderWidth,
-        ),
-        shape: BoxShape.circle,
-      ),
-      child: InkWell(
-        onTap: onPressed as void Function()?,
-        child: Container(
-          height: radius * 2,
-          width: radius * 2,
-          padding: EdgeInsets.all(padding),
+    return Row(
+      children: [
+        texts ?? const Text(''),
+        const SizedBox(width: 5),
+        Container(
+          padding: EdgeInsets.all(margin),
           decoration: BoxDecoration(
-            color: isSelected
-                ? activeColor ?? Colors.green
-                : (isStepCompleted == true)
-                    ? completedColor ?? Colors.green
-                    : color ?? Colors.grey,
+            border: Border.all(
+              color: isSelected ? (activeBorderColor ?? Colors.blue) : Colors.transparent,
+              width: activeBorderWidth,
+            ),
             shape: BoxShape.circle,
           ),
-          child: Center(
-            child: child,
+          child: InkWell(
+            onTap: onPressed as void Function()?,
+            child: Container(
+              height: radius * 2,
+              width: radius * 2,
+              padding: EdgeInsets.all(padding),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? activeColor ?? Colors.green
+                    : (isStepCompleted == true)
+                        ? completedColor ?? Colors.green
+                        : color ?? Colors.grey,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: child,
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

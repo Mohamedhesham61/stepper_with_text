@@ -62,20 +62,21 @@ class _IconStepperDemo extends State<IconStepperDemo> {
                 stepperAnimateInMiddle: true,
                 icons: allIcons,
                 stepsCompletedStatusMap: completeStatusMap,
-                activeStepColor: active,
+                activeStepColor: Colors.green,
                 activeStepBorderColor: active,
+                textStyle: TextStyle(color: Colors.red),
                 // activeStep property set to activeStep variable defined above.
                 stepColor: remain,
                 activeStep: activeStep,
                 enableText: true,
-                texts: const [
-                  'Preface',
-                  'Table ',
-                  'About',
-                  'Publisher',
-                  'Reviews',
-                  'Chapters #1',
-                  'Chapters #2',
+                texts: [
+                  Text('one', style: TextStyle(color: Colors.black),),
+                  Text('two', style: TextStyle(color: Colors.red),),
+                  Text('three', style: TextStyle(color: Colors.green),),
+                  Text('four', style: TextStyle(color: Colors.blue),),
+                  Text('one', style: TextStyle(color: Colors.black),),
+                  Text('two', style: TextStyle(color: Colors.red),),
+                  Text('three', style: TextStyle(color: Colors.green),),
                 ],
                 // This ensures step-tapping updates the activeStep.
                 onStepReached: (index) {
@@ -99,7 +100,7 @@ class _IconStepperDemo extends State<IconStepperDemo> {
                   activeStepColor: active,
                   activeStepBorderColor: active,
                   enableNextPreviousButtons: false,
-                  stepRadius: 20,
+                  // stepRadius: 20,
                   // activeStep property set to activeStep variable defined above.
                   stepColor: remain,
                   activeStep: activeStep,
@@ -110,14 +111,11 @@ class _IconStepperDemo extends State<IconStepperDemo> {
                     NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiikrpuMja6PvoLzYFZMN5KLS8KBEvf7pcZPNQgjjiXw&s'),
                   ],
                   enableText: true,
-                  texts: const [
-                    'Preface',
-                    'Table ',
-                    'About',
-                    'Publisher',
-                    'Reviews',
-                    'Chapters #1',
-                    'Chapters #2',
+                  texts: [
+                    Text('one', style: TextStyle(color: Colors.black),),
+                    Text('two', style: TextStyle(color: Colors.red),),
+                    Text('three', style: TextStyle(color: Colors.green),),
+                    Text('four', style: TextStyle(color: Colors.blue),),
                   ],
                   // This ensures step-tapping updates the activeStep.
                   onStepReached: (index) {
